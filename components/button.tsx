@@ -8,8 +8,8 @@ export enum roundedEnum {
 }
 
 export enum colorSet {
-  민트 = "#1dbc92",
-  빨 = "#1dc753",
+  min = "#1dbc92",
+  b = "#1dc753",
   // main = "#ace154",
   // main = "#f2ea8c",
   // main = "#f8efbb",

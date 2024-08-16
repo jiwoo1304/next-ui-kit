@@ -13,6 +13,6 @@
     "isolatedModules": true,
     "jsx": "react"
   },
-  "include": ["src", "index.ts"],
+  "include": ["src", "index.ts", "components/button.tsx", "components"],
   "exclude": ["node_modules"]
 }

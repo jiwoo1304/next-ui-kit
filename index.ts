@@ -1,1 +1,1 @@
-export { default as JiButton } from "./src/button";
+export { default as JiButton } from "./components/button";

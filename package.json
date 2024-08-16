@@ -1,6 +1,6 @@
 {
   "name": "@l0ylz/l0ylz-next-ui-kit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
