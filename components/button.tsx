@@ -1,50 +1,75 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
-export enum roundedEnum {
-  sm = "2px",
-  md = "4px",
-  lg = "6px",
-  full = "2000px",
-}
+export const roundedEnum = {
+  sm: "2px",
+  md: "4px",
+  lg: "6px",
+  full: "2000px",
+} as const;
 
-export enum colorSet {
-  min = "#1dbc92",
-  b = "#1dc753",
-  // main = "#ace154",
-  // main = "#f2ea8c",
-  // main = "#f8efbb",
-}
+export const colorSet = {
+  deep: "#520922",
+  dark: "#980c28",
+  main: "#20a1d8",
+  light: "#20dbd8",
+} as const;
 
-interface Props {
-  children: ReactNode;
+export type RoundedEnum = typeof roundedEnum;
+
+export type ColorSet = typeof colorSet;
+
+export type BgColorProp = keyof ColorSet | (string & {});
+export type RoundedProp = keyof RoundedEnum | (string & {});
+
+export interface ButtonProps {
+  children: React.ReactNode;
   paddingX?: string;
   paddingY?: string;
-  bgColor?: string;
+  bgColor?: BgColorProp;
   bgOpacity?: string;
-  rounded?: string;
+  rounded?: RoundedProp;
+  onClick?: () => void; // onClick 이벤트 핸들러 추가
 }
 
-const Button: React.FC<Props> = ({
+const Button: React.FC<ButtonProps> = ({
   children,
-  bgColor,
   paddingX,
   paddingY,
+  bgColor,
   bgOpacity,
   rounded,
+  onClick,
 }) => {
+  const getBackgroundColor = (color: BgColorProp): string => {
+    return color in colorSet ? colorSet[color as keyof ColorSet] : color;
+  };
+
+  const getBorderRadius = (radius: RoundedProp): string => {
+    return radius in roundedEnum
+      ? roundedEnum[radius as keyof RoundedEnum]
+      : radius;
+  };
+
   return (
-    <div
+    <button
+      onClick={onClick}
       style={{
         display: "inline-block",
-        backgroundColor: bgColor,
+        backgroundColor: bgColor ? getBackgroundColor(bgColor) : undefined,
         opacity: bgOpacity,
-        paddingBlock: paddingY,
         paddingInline: paddingX,
-        borderRadius: rounded,
+        paddingBlock: paddingY,
+        borderRadius: rounded ? getBorderRadius(rounded) : undefined,
+        border: "none",
+        cursor: "pointer",
+        fontFamily: "inherit",
+        fontSize: "inherit",
+        color: "white", // 텍스트 색상 설정
+        transition: "background-color 0.3s, opacity 0.3s", // 부드러운 전환 효과
       }}
     >
       {children}
-    </div>
+    </button>
   );
 };
 
